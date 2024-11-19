@@ -4,6 +4,11 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 function ProjectCard({ project }) {
+  // Normalize image path
+  const imagePath = project.image.startsWith('../../../public') 
+    ? project.image.replace('../../../public', '') 
+    : project.image;
+
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -14,7 +19,7 @@ function ProjectCard({ project }) {
         overflow="hidden"
         bg="gray.800"
         position="relative"
-        minH="400px"
+        h="300px"
         w="full"
         _hover={{
           '& > .project-overlay': {
@@ -23,11 +28,14 @@ function ProjectCard({ project }) {
         }}
       >
         <Image
-          src={project.image}
+          src={imagePath}
           alt={project.title}
           w="full"
           h="300px"
-          objectFit="cover"
+          objectFit="contain"
+          bg="gray.800"
+          p={4}
+          fallback={<Box w="full" h="300px" bg="gray.700" />}
         />
         <Box
           className="project-overlay"
@@ -39,9 +47,21 @@ function ProjectCard({ project }) {
           bg="rgba(0,0,0,0.8)"
           opacity="0"
           transition="opacity 0.3s"
-          p={8}
+          overflowY="auto"
+          css={{
+            '&::-webkit-scrollbar': {
+              width: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'transparent',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: 'rgba(255,255,255,0.3)',
+              borderRadius: '4px',
+            },
+          }}
         >
-          <Stack spacing={6}>
+          <Stack spacing={6} p={8}>
             <Heading size="lg" color="brand.primary">
               {project.title}
             </Heading>
