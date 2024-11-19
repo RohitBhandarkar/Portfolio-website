@@ -4,7 +4,7 @@
 A modern, responsive portfolio website built with React and Chakra UI showcasing my skills, projects and experience.
 
 ## Live Demo
-The website is hosted at [URL] 
+The website is hosted at https://rohitbhandarkar.vercel.app 
 
 ## Features
 - Modern and responsive design

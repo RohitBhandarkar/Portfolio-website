@@ -17,7 +17,7 @@ const experiences = [
     company: "JP Morgan Chase",
     position: "Software Engineering Program Intern",
     period: "June 2024 - Aug 2024",
-    description: "Built the entire backend infrastructure for visualization of hierarchical data with user authentication",
+    description: "Built a robust and scalable backend infrastructure for visualization of hierarchical data with user authentication",
     url: "https://www.jpmorganchase.com/"
   },
   {

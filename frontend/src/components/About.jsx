@@ -38,7 +38,7 @@ function About() {
                 transition={{ duration: 0.3 }}
               >
                 <Image
-                  src="/images/God.jpeg"
+                  src="/images/self.jpeg"
                   alt="Rohit Bhandarkar"
                   borderRadius="xl"
                   boxShadow="xl"
