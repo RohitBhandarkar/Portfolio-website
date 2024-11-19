@@ -1,74 +1,41 @@
-import React, { useState } from 'react';
-import { Box, Container, Heading, VStack, FormControl, FormLabel, Input, Textarea, Button, useToast } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Container, Heading, VStack, HStack, Link, Text, Icon } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { FaGithub, FaLinkedin, FaXTwitter, FaEnvelope } from 'react-icons/fa6';
 
 function Contact() {
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: true
   });
-  
-  const toast = useToast();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // You would replace this URL with your actual backend endpoint
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      toast({
-        title: "Message sent!",
-        description: "I'll get back to you soon.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-
-      // Clear form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        message: ''
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again later.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    } finally {
-      setIsSubmitting(false);
+  const socialLinks = [
+    {
+      label: 'Email',
+      href: 'mailto:rohitbhandarkar@hotmail.com',
+      icon: FaEnvelope,
+      color: 'red.400'
+    },
+    {
+      label: 'GitHub',
+      href: 'https://github.com/rohitbhandarkar',
+      icon: FaGithub,
+      color: 'gray.400'
+    },
+    {
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/rohit-bhandarkar-52060b22a/',
+      icon: FaLinkedin,
+      color: 'linkedin.500'
+    },
+    {
+      label: 'X',
+      href: 'https://x.com/Real_Rohit2002',
+      icon: FaXTwitter,
+      color: 'gray.400'
     }
-  };
+  ];
 
   return (
     <Box id="contact" py={20} bg="gray.900">
@@ -88,60 +55,39 @@ function Contact() {
             Get In Touch
           </Heading>
           <Box
-            as="form"
-            onSubmit={handleSubmit}
             bg="gray.800"
             p={8}
             borderRadius="xl"
             boxShadow="xl"
           >
-            <VStack spacing={6}>
-              <FormControl isRequired>
-                <FormLabel color="gray.300">Name</FormLabel>
-                <Input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  bg="gray.700"
-                  border="none"
-                  _focus={{ bg: "gray.600" }}
-                />
-              </FormControl>
-              <FormControl isRequired>
-                <FormLabel color="gray.300">Email</FormLabel>
-                <Input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  bg="gray.700"
-                  border="none"
-                  _focus={{ bg: "gray.600" }}
-                />
-              </FormControl>
-              <FormControl isRequired>
-                <FormLabel color="gray.300">Message</FormLabel>
-                <Textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  bg="gray.700"
-                  border="none"
-                  _focus={{ bg: "gray.600" }}
-                  rows={6}
-                />
-              </FormControl>
-              <Button
-                type="submit"
-                colorScheme="teal"
-                size="lg"
-                w="full"
-                isLoading={isSubmitting}
-                loadingText="Sending..."
-              >
-                Send Message
-              </Button>
+            <VStack spacing={8}>
+              <Text color="gray.300" fontSize="lg" textAlign="center">
+                Feel free to reach out! I'm always open to discussing new projects, opportunities, or just having a chat.
+              </Text>
+              <HStack spacing={8} justify="center" wrap="wrap">
+                {socialLinks.map((link) => (
+                  <Link 
+                    key={link.label}
+                    href={link.href}
+                    isExternal
+                    _hover={{ transform: 'translateY(-2px)' }}
+                    transition="all 0.3s"
+                  >
+                    <VStack spacing={2}>
+                      <Icon 
+                        as={link.icon} 
+                        w={8} 
+                        h={8} 
+                        color={link.color}
+                        _hover={{ color: 'brand.primary' }}
+                      />
+                      <Text color="gray.300" fontSize="sm">
+                        {link.label}
+                      </Text>
+                    </VStack>
+                  </Link>
+                ))}
+              </HStack>
             </VStack>
           </Box>
         </motion.div>
