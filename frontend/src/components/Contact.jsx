@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Container, Heading, VStack, FormControl, FormLabel, Input, Textarea, Button, useToast } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -10,17 +10,64 @@ function Contact() {
   });
   
   const toast = useToast();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic here
-    toast({
-      title: "Message sent!",
-      description: "I'll get back to you soon.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
+    setIsSubmitting(true);
+
+    try {
+      // You would replace this URL with your actual backend endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      toast({
+        title: "Message sent!",
+        description: "I'll get back to you soon.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+
+      // Clear form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -53,6 +100,9 @@ function Contact() {
                 <FormLabel color="gray.300">Name</FormLabel>
                 <Input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   bg="gray.700"
                   border="none"
                   _focus={{ bg: "gray.600" }}
@@ -62,6 +112,9 @@ function Contact() {
                 <FormLabel color="gray.300">Email</FormLabel>
                 <Input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   bg="gray.700"
                   border="none"
                   _focus={{ bg: "gray.600" }}
@@ -70,6 +123,9 @@ function Contact() {
               <FormControl isRequired>
                 <FormLabel color="gray.300">Message</FormLabel>
                 <Textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   bg="gray.700"
                   border="none"
                   _focus={{ bg: "gray.600" }}
@@ -81,6 +137,8 @@ function Contact() {
                 colorScheme="teal"
                 size="lg"
                 w="full"
+                isLoading={isSubmitting}
+                loadingText="Sending..."
               >
                 Send Message
               </Button>
@@ -92,4 +150,4 @@ function Contact() {
   );
 }
 
-export default Contact; 
+export default Contact;

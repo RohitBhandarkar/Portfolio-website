@@ -86,14 +86,19 @@ function Hero() {
               <Button
                 size="lg"
                 variant="solid"
-                leftIcon={<i className="fas fa-code" />}
+                leftIcon={<i className="fas fa-download" />}
+                as="a"
+                href="/Rohit-Bhandarkar-Resume.pdf"
+                download
               >
-                View Projects
+                Download CV
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 leftIcon={<i className="fas fa-envelope" />}
+                as="a" 
+                href="#contact"
               >
                 Contact Me
               </Button>
@@ -105,4 +110,4 @@ function Hero() {
   );
 }
 
-export default Hero; 
+export default Hero;
