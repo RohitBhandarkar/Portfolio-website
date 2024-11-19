@@ -30,8 +30,7 @@ function About() {
                 A tech enthusiast hailing from the Silicon Valley of India, I'm passionate about pushing the boundaries of what's possible with technology. My journey in tech has been driven by curiosity and a desire to solve complex problems.
               </Text>
               <Text color="gray.300" fontSize="lg">
-                Specializing in machine learning and image processing, I'm constantly exploring new technologies and contributing to open-source projects. I believe in the power of technology to make a positive impact on the world.
-              </Text>
+                As a Software Engineer at JP Morgan, I blend my expertise in machine learning and backend development with a passion for quantitative finance. My commitment to open-source development reflects my belief in collaborative innovation. I'm driven by the potential of technology to transform industries and enhance lives, constantly pushing the boundaries of what's possible through hands-on exploration of emerging technologies.</Text>
             </Stack>
             <Box>
               <motion.div

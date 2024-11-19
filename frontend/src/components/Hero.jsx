@@ -76,7 +76,7 @@ function Hero() {
               mb={8}
             >
               A passionate tech enthusiast from Bangalore, specializing in Machine Learning,
-              Image Processing, and Software Development
+              Backend Development, and Software Development with a passion for building scalable and efficient systems.
             </Text>
             <Stack
               direction={{ base: 'column', md: 'row' }}
